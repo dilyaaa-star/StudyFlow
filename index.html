@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div>
+        <h1>StudyFlow 🌸</h1>
+        <p id="date"></p>
+    </div>
+    <div class="clock" id="clock">00:00:00</div>
+</header>
+
+<main>
+
+    <section class="welcome">
+        <h2>Привет! 💗</h2>
+        <p id="motivation">Ты справишься. Маленький шаг тоже считается.</p>
+    </section>
+
+    <section class="stats">
+        <div class="stat">
+            <span>Средний балл</span>
+            <strong id="average">—</strong>
+        </div>
+        <div class="stat">
+            <span>Оценок</span>
+            <strong id="gradesCount">0</strong>
+        </div>
+        <div class="stat">
+            <span>Заданий</span>
+            <strong id="tasksCount">0</strong>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>📚 Мои оценки</h2>
+
+        <div class="form">
+            <input id="subjectInput" type="text" placeholder="Предмет">
+            <input id="gradeInput" type="number" min="1" max="5" placeholder="Оценка">
+            <button onclick="addGrade()">Добавить</button>
+        </div>
+
+        <div id="gradesList"></div>
+    </section>
+
+    <section class="card">
+        <h2>📝 Домашние задания</h2>
+
+        <div class="form">
+            <input id="taskInput" type="text" placeholder="Например: решить №25">
+            <button onclick="addTask()">Добавить</button>
+        </div>
+
+        <div id="tasksList"></div>
+    </section>
+
+    <section class="card">
+        <h2>💭 Мотивация</h2>
+        <button class="motivationButton" onclick="newMotivation()">
+            Дай мотивацию ✨
+        </button>
+        <p class="bigMotivation" id="bigMotivation">
+            Ты не обязана сделать всё сразу.
+        </p>
+    </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
