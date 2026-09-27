@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <header class="topbar">
+        <div>
+            <div class="small-text" id="todayDate">Сегодня</div>
+            <div class="clock" id="clock">00:00</div>
+        </div>
+
+        <button class="avatar-button" onclick="openPage('settings')">
+            <img id="avatarTop" src="" alt="">
+            <span id="avatarLetter">Д</span>
+        </button>
+    </header>
+
+
+    <!-- ГЛАВНАЯ -->
+    <main id="page-home" class="page active">
+
+        <section class="welcome">
+            <p class="small-text">Добро пожаловать 👋</p>
+
+            <h1>
+                Привет, <span id="homeName">Диляра</span>!
+            </h1>
+
+            <p id="motivationText" class="motivation">
+                Ты справишься. Главное — начать.
+            </p>
+        </section>
+
+
+        <section class="weather-card">
+
+            <div>
+                <span class="weather-icon" id="weatherIcon">🌤️</span>
+
+                <div>
+                    <b id="weatherTemp">Загрузка...</b>
+                    <p id="weatherText">Погода</p>
+                </div>
+            </div>
+
+            <button
+                onclick="loadWeather()"
+                class="mini-button"
+            >
+                ↻
+            </button>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-title">
+                <h2>Быстрый доступ</h2>
+            </div>
+
+
+            <div class="quick-grid">
+
+                <button
+                    class="quick-card purple"
+                    onclick="openPage('homework')"
+                >
+                    <span>📚</span>
+                    <b>Домашка</b>
+                    <small id="homeworkCount">
+                        0 заданий
+                    </small>
+                </button>
+
+
+                <button
+                    class="quick-card blue"
+                    onclick="openPage('grades')"
+                >
+                    <span>⭐</span>
+                    <b>Оценки</b>
+                    <small>
+                        Средний:
+                        <span id="homeAverage">—</span>
+                    </small>
+                </button>
+
+
+                <button
+                    class="quick-card pink"
+                    onclick="openPage('diary')"
+                >
+                    <span>📔</span>
+                    <b>Дневник</b>
+                    <small>Мои записи</small>
+                </button>
+
+
+                <button
+                    class="quick-card green"
+                    onclick="openPage('settings')"
+                >
+                    <span>⚙️</span>
+                    <b>Профиль</b>
+                    <small>Настройки</small>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-title">
+                <h2>Мотивация</h2>
+
+                <button onclick="newMotivation()">
+                    ↻
+                </button>
+            </div>
+
+
+            <div class="motivation-big">
+
+                <div class="motivation-star">
+                    ✦
+                </div>
+
+                <p id="motivationBig">
+                    Маленький шаг сегодня —
+                    большой результат завтра.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-title">
+                <h2>Быстрая заметка</h2>
+            </div>
+
+
+            <textarea
+                id="quickNote"
+                class="textarea"
+                placeholder="Напиши что-нибудь, чтобы не забыть..."
+            ></textarea>
+
+
+            <button
+                class="main-button"
+                onclick="saveQuickNote()"
+            >
+                💾 Сохранить заметку
+            </button>
+
+
+            <div
+                id="quickNoteStatus"
+                class="status"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ДОМАШКА -->
+
+    <main id="page-homework" class="page">
+
+        <div class="page-heading">
+
+            <button
+                class="back-button"
+                onclick="openPage('home')"
+            >
+                ←
+            </button>
+
+            <div>
+                <h1>Домашка</h1>
+                <p>Все задания в одном месте</p>
+            </div>
+
+        </div>
+
+
+        <section class="add-card">
+
+            <input
+                id="homeworkSubject"
+                class="input"
+                placeholder="Предмет"
+            >
+
+
+            <input
+                id="homeworkTitle"
+                class="input"
+                placeholder="Что нужно сделать?"
+            >
+
+
+            <input
+                id="homeworkDate"
+                class="input"
+                type="date"
+            >
+
+
+            <button
+                class="main-button"
+                onclick="addHomework()"
+            >
+                ＋ Добавить задание
+            </button>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <h2>Мои задания</h2>
+
+                <span
+                    id="homeworkTotal"
+                    class="counter"
+                >
+                    0
+                </span>
+
+            </div>
+
+
+            <div id="homeworkList"></div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ОЦЕНКИ -->
+
+    <main id="page-grades" class="page">
+
+        <div class="page-heading">
+
+            <button
+                class="back-button"
+                onclick="openPage('home')"
+            >
+                ←
+            </button>
+
+            <div>
+                <h1>Оценки</h1>
+                <p>Следи за своей успеваемостью</p>
+            </div>
+
+        </div>
+
+
+        <section class="average-card">
+
+            <span>Средний балл</span>
+
+            <strong id="averageBig">
+                —
+            </strong>
+
+        </section>
+
+
+        <section class="add-card">
+
+            <input
+                id="gradeSubject"
+                class="input"
+                placeholder="Предмет"
+            >
+
+
+            <select
+                id="gradeValue"
+                class="input"
+            >
+                <option value="5">
+                    5 — отлично
+                </option>
+
+                <option value="4">
+                    4 — хорошо
+                </option>
+
+                <option value="3">
+                    3 — удовлетворительно
+                </option>
+
+                <option value="2">
+                    2 — плохо
+                </option>
+            </select>
+
+
+            <input
+                id="gradeDate"
+                class="input"
+                type="date"
+            >
+
+
+            <button
+                class="main-button"
+                onclick="addGrade()"
+            >
+                ＋ Добавить оценку
+            </button>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-title">
+                <h2>Мои оценки</h2>
+            </div>
+
+            <div id="gradesList"></div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ДНЕВНИК -->
+
+    <main id="page-diary" class="page">
+
+        <div class="page-heading">
+
+            <button
+                class="back-button"
+                onclick="openPage('home')"
+            >
+                ←
+            </button>
+
+            <div>
+                <h1>Дневник</h1>
+                <p>Твои мысли и события</p>
+            </div>
+
+        </div>
+
+
+        <section class="add-card">
+
+            <input
+                id="diaryTitle"
+                class="input"
+                placeholder="Заголовок"
+            >
+
+
+            <textarea
+                id="diaryText"
+                class="textarea"
+                placeholder="Напиши здесь всё, что хочешь сохранить..."
+            ></textarea>
+
+
+            <button
+                class="main-button"
+                onclick="addDiary()"
+            >
+                ✍️ Сохранить запись
+            </button>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-title">
+                <h2>Мои записи</h2>
+            </div>
+
+
+            <div id="diaryList"></div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ПРОФИЛЬ -->
+
+    <main id="page-settings" class="page">
+
+        <div class="page-heading">
+
+            <button
+                class="back-button"
+                onclick="openPage('home')"
+            >
+                ←
+            </button>
+
+            <div>
+                <h1>Профиль</h1>
+                <p>Настрой StudyFlow под себя</p>
+            </div>
+
+        </div>
+
+
+        <section class="profile-card">
+
+            <div class="big-avatar">
+
+                <img
+                    id="avatarSettings"
+                    src=""
+                    alt=""
+                >
+
+                <span id="avatarLetterSettings">
+                    Д
+                </span>
+
+            </div>
+
+
+            <label class="upload-button">
+
+                📷 Изменить аватар
+
+                <input
+                    type="file"
+                    id="avatarInput"
+                    accept="image/*"
+                    onchange="changeAvatar(event)"
+                >
+
+            </label>
+
+        </section>
+
+
+        <section class="add-card">
+
+            <label class="field-label">
+                Твоё имя
+            </label>
+
+
+            <input
+                id="nameInput"
+                class="input"
+                placeholder="Например: Диляра"
+            >
+
+
+            <button
+                class="main-button"
+                onclick="saveName()"
+            >
+                💾 Сохранить имя
+            </button>
+
+        </section>
+
+
+        <section class="settings-info">
+
+            <div class="info-row">
+                <span>📚 Заданий</span>
+                <b id="settingsHomeworkCount">0</b>
+            </div>
+
+
+            <div class="info-row">
+                <span>⭐ Оценок</span>
+                <b id="settingsGradesCount">0</b>
+            </div>
+
+
+            <div class="info-row">
+                <span>📔 Записей</span>
+                <b id="settingsDiaryCount">0</b>
+            </div>
+
+        </section>
+
+
+        <button
+            class="danger-button"
+            onclick="clearAllData()"
+        >
+            🗑️ Очистить все данные
+        </button>
+
+    </main>
+
+
+
+    <!-- НИЖНЯЯ ПАНЕЛЬ -->
+
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-button active"
+            data-page="home"
+            onclick="openPage('home')"
+        >
+            <span>⌂</span>
+            <small>Главная</small>
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-page="homework"
+            onclick="openPage('homework')"
+        >
+            <span>✓</span>
+            <small>Домашка</small>
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-page="grades"
+            onclick="openPage('grades')"
+        >
+            <span>★</span>
+            <small>Оценки</small>
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-page="diary"
+            onclick="openPage('diary')"
+        >
+            <span>▤</span>
+            <small>Дневник</small>
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-page="settings"
+            onclick="openPage('settings')"
+        >
+            <span>⚙</span>
+            <small>Профиль</small>
+        </button>
+
+    </nav>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<!-- ВОТ ЭТА СТРОКА ПОДКЛЮЧАЕТ app.js -->
+<script src="app.js"></script>
+
+</body>
+</html>
